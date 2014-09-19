@@ -1,9 +1,17 @@
-## Put comments here that give an overall description of what your
-## functions do
+## cachematrix.R
+## Marc Finot
+## 9/18/2014
+## The two following functions provide a way to calculate only 
+## once the inverse of a matrix and keep the result in memory to reduce 
 
-## Write a short comment describing this function
-## this function create a matrix object which can cache the inverse of the matrix in order to avoid repeat calculation.
-
+## this function creates a matrix object which can cache the inverse of the matrix in order to avoid repeat calculation.
+## 
+## How to use it. s is the matrix to be inverted
+## x <- makeCacheMatrix(s)  -  create the object
+## x$get() to get the matrix
+## cachesolve(x) to invert the matrix and cache it in memory
+## x$getsolve(): to retrieve the inverse
+ 
 makeCacheMatrix <- function(x = matrix()) {
 		s <- NULL
         set <- function(y) {
@@ -27,12 +35,12 @@ cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
         s <- x$getsolve()
         if(!is.null(s)) {
-                message("getting cached data")
+                message("getting cached inverse")
                 return(s)
         }
         data <- x$get()
         s <- solve(data, ...)
         x$setsolve(s)
         s
-		}
+}
 		
